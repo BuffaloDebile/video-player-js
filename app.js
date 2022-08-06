@@ -6,9 +6,12 @@ const progress = document.querySelector('.progress');
 const muteBtn = document.querySelector('.mute-btn');
 const muteIcon = document.querySelector('.mute-btn img');
 const volumeSlider = document.querySelector('.volume-slider');
+const progressBar = document.querySelector('.progress-bar');
 
 let current;
 let totalDuration;
+let rect = progressBar.getBoundingClientRect();
+let largeur = rect.width;
 
 video.addEventListener('click', togglePlay);
 playToggler.addEventListener('click', togglePlay);
@@ -17,6 +20,8 @@ window.addEventListener('load', fillDurationVariables);
 video.addEventListener('timeupdate', handleTimeUpdate);
 muteBtn.addEventListener('click', handleMute);
 volumeSlider.addEventListener('change', handleVolumeModification);
+window.addEventListener('resize', handleResize);
+progressBar.addEventListener('click', handleProgressNavigation);
 
 function togglePlay() {
   if (video.paused) {
@@ -80,4 +85,17 @@ function handleVolumeModification() {
   if (video.volume === 0) {
     muteIcon.src = 'ressources/mute.svg';
   } else muteIcon.src = 'ressources/unmute.svg';
+}
+
+function handleResize() {
+  let rect = progressBar.getBoundingClientRect();
+  let largeur = rect.width;
+}
+
+function handleProgressNavigation(e) {
+  const x = e.clientX - rect.left;
+
+  const widthPercent = x / largeur;
+
+  video.currentTime = video.duration * widthPercent;
 }
