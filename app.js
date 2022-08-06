@@ -7,6 +7,8 @@ const muteBtn = document.querySelector('.mute-btn');
 const muteIcon = document.querySelector('.mute-btn img');
 const volumeSlider = document.querySelector('.volume-slider');
 const progressBar = document.querySelector('.progress-bar');
+const fullScreenToggler = document.querySelector('.fullscreen-toggler');
+const videoContainer = document.querySelector('.video-container');
 
 let current;
 let totalDuration;
@@ -22,6 +24,8 @@ muteBtn.addEventListener('click', handleMute);
 volumeSlider.addEventListener('change', handleVolumeModification);
 window.addEventListener('resize', handleResize);
 progressBar.addEventListener('click', handleProgressNavigation);
+video.addEventListener('dblclick', toggleFullScreen);
+fullScreenToggler.addEventListener('click', toggleFullScreen);
 
 function togglePlay() {
   if (video.paused) {
@@ -98,4 +102,12 @@ function handleProgressNavigation(e) {
   const widthPercent = x / largeur;
 
   video.currentTime = video.duration * widthPercent;
+}
+
+function toggleFullScreen() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else {
+    videoContainer.requestFullscreen();
+  }
 }
