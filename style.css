@@ -125,6 +125,12 @@ video {
   background: #111;
   width: 100%;
   cursor: auto;
+  transition: transform 0.35s ease-out;
+  transform: translateY(calc(100% - 8px));
+}
+
+.video-container:hover .controls {
+  transform: translateY(0%);
 }
 
 .progress-bar {
